@@ -58,44 +58,36 @@ import '../../../core/enum/view_state.dart';
 import '../../base_model.dart';
 
 class SplashProvider extends BaseModel {
-
   SplashProvider() {
     print("SplashProvider constructor");
     init();
-//    apiCall();
- //   sendData();
-   // getSingleData();
   }
-
 
   Future<void> init() async {
-    // Mocking an API call with a delay
-  await Future.delayed(const Duration(seconds: 2));
-    navigationService.popAllAndPushNamed(Routes.home);
-  }
-
-  Future<void> apiCall() async {
-    print("Api Call function");
-
     await Future.delayed(const Duration(seconds: 2));
-
-    // Ensure the navigation action is scheduled after the current frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      navigationService.popAllAndPushNamed(Routes.home);
-    });
+    navigationService.popAllAndPushNamed(Routes.signUp);
   }
 
-
-
-
-
+  // Future<void> apiCall() async {
+  //   print("Api Call function");
+  //
+  //   await Future.delayed(const Duration(seconds: 2));
+  //
+  //   // Ensure the navigation action is scheduled after the current frame
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     navigationService.popAllAndPushNamed(Routes.signIn);
+  //   });
+  // }
 
   List<UserModel> userModel = [];
 
   void sendData() async {
     try {
       setState(ViewState.Busy);
-      List<UserModel> response = await ApiBaseService.requestList<UserModel>('/users', method: RequestMethod.GET,);
+      List<UserModel> response = await ApiBaseService.requestList<UserModel>(
+        '/users',
+        method: RequestMethod.GET,
+      );
       setState(ViewState.Idle);
       if (response != null) {
         for (var user in response) {
@@ -109,11 +101,11 @@ class SplashProvider extends BaseModel {
     }
   }
 
-
   void getSingleData() async {
     try {
       setState(ViewState.Busy);
-      TodoModel response = await ApiBaseService.request<TodoModel>('/todos/1', method: 'GET');
+      TodoModel response =
+          await ApiBaseService.request<TodoModel>('/todos/1', method: 'GET');
       setState(ViewState.Idle);
       if (response != null) {
         print("===++ ${response.title}");
@@ -123,41 +115,36 @@ class SplashProvider extends BaseModel {
     }
   }
 
-
   Future<void> createUser(Map<String, String> userData) async {
     try {
-      var response = await ApiBaseService.request('users', method: 'POST', params: userData);
+      var response = await ApiBaseService.request('users',
+          method: 'POST', params: userData);
       print(response);
     } catch (e) {
       print('Error creating user: $e');
     }
   }
 
+// Future<void> uploadProfilePicture(File imageFile) async {
+//   try {
+//     var response = await apiService.uploadImage(imageFile, 'upload-profile-picture');
+//     print(response);
+//   } catch (e) {
+//     print('Error uploading image: $e');
+//   }
+// }
 
-  // Future<void> uploadProfilePicture(File imageFile) async {
-  //   try {
-  //     var response = await apiService.uploadImage(imageFile, 'upload-profile-picture');
-  //     print(response);
-  //   } catch (e) {
-  //     print('Error uploading image: $e');
-  //   }
-  // }
-
-
-  // Future<void> uploadImage() async {
-  //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-  //
-  //   if (pickedFile != null) {
-  //     File imageFile = File(pickedFile.path);
-  //     try {
-  //       var response = await apiService.uploadImage(imageFile, 'upload-profile-picture');
-  //       print(response);
-  //     } catch (e) {
-  //       print('Error uploading image: $e');
-  //     }
-  //   }
-  // }
-
-
-
+// Future<void> uploadImage() async {
+//   final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+//
+//   if (pickedFile != null) {
+//     File imageFile = File(pickedFile.path);
+//     try {
+//       var response = await apiService.uploadImage(imageFile, 'upload-profile-picture');
+//       print(response);
+//     } catch (e) {
+//       print('Error uploading image: $e');
+//     }
+//   }
+// }
 }

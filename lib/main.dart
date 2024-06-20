@@ -1,10 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked_node/router.dart';
-import 'package:stacked_node/services/appconfig_service.dart';
-import 'package:stacked_node/services/navigator_service.dart';
-import 'package:stacked_node/ui/views/home/home_page.dart';
-import 'package:stacked_node/ui/views/splash/splash_page.dart';
 import 'package:stacked_node/ui/views/splash/splash_provider.dart';
 
 import 'core/res/styles.dart';
@@ -56,10 +54,12 @@ import 'locator.dart';
 
 
 void main() {
-  setupLocator();
+
   WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -69,7 +69,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) {
-          // Ensure only one instance of SplashProvider is created
           return SplashProvider();
         }),
       ],
@@ -86,3 +85,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

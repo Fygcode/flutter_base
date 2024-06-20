@@ -179,7 +179,7 @@ class AppTextStyle {
   static TextStyle purpose = const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w700,
-      color: AppColor.white,
+      color: AppColor.blueGradient,
       letterSpacing: 0.12);
 
 //Tamil
